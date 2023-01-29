@@ -44,7 +44,7 @@ const botOptions = document.querySelectorAll("#player2 .available-options .optio
 const playerShowArea = document.querySelector("#player1 .selected-option .option");
 
 // Where selected option of bot is shown
-const botShowArea = document.querySelector("#player2 selected-option .option")
+const botShowArea = document.querySelector("#player2 .selected-option .option")
 
 // Player 1 and bot score
 const player1Score = document.querySelector("#player1-score");
@@ -78,7 +78,7 @@ const play = (e) => {
   highlightSelectedOption(player2, botOptions);
 
   // Calculate the result
-  calulateScore(player1, player2);
+  calculateScore(player1, player2);
 }
 
 // Generate an image element
@@ -116,4 +116,45 @@ const addScore = (player) => {
 };
 
 // Show the message 
-const 
+const showMessage = (msg) => {
+  roundMessage.innerHTML = "";
+  roundMessage.innerHTML = msg;
+};
+
+const calculateScore = (player1, player2) => {
+  // player 1 choice
+  const player1Choice = optionsArray[player1].name;
+
+  // bot choice
+  const player2Choice = optionsArray[player2].name;
+
+  // get player 1 selected choice rule
+  const player1Strength = rule[player1Choice];
+
+  // Check the case and who wins the round
+  if (player1Choice === player2Choice) {
+    showMessage("Draw")
+  } else if (player1Strength.includes(player2Choice)) {
+    addScore(player1Score);
+    showMessage("Player 1 wins!");
+  } else {
+    addScore(player2Score);
+    showMessage("Bot wins!");
+  }
+};
+
+const reset = () => {
+  botShowArea.innerHTML = "";
+  playerShowArea.innerHTML = "";
+  roundMessage.innerHTML = "Choose Your Option";
+  player2Score.innerHTML = "0";
+  player1Score.innerHTML = "0";
+  player1Options.forEach((e) => {
+    e.classList.remove("active");
+  });
+  botOptions.forEach((e) => {
+    e.classList.remove("active");
+  });
+};
+
+document.querySelector(".reset").addEventListener("click", reset);
