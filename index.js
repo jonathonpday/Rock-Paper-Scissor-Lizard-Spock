@@ -1,5 +1,5 @@
 // Order in which the options are available
-const arr = [
+const options = [
   {
     image: "rock.png",
     name: "Rock",
@@ -52,3 +52,23 @@ const player2Score = document.querySelector("#player2-score");
 
 // Where message will be shown 
 const roundMessage = document.querySelector("#round-message");
+
+player1Options.forEach((e) => {
+  e.addEventListener("click", () => {
+    play(e);
+  });
+});
+
+const play = (e) => {
+  // get the index of the option slected by the player
+  const player1 = e.getAttribute("data-index");
+
+  // Number of options available
+  const length = options.length
+
+  // Generate a random number between number of options available for bot
+  const player2 = Math.floor(Math.random() * length);
+
+  
+
+}
