@@ -1,5 +1,5 @@
 // Order in which the options are available
-const options = [
+const optionsArray = [
   {
     image: "rock.png",
     name: "Rock",
@@ -64,11 +64,56 @@ const play = (e) => {
   const player1 = e.getAttribute("data-index");
 
   // Number of options available
-  const length = options.length
+  const length = optionsArray.length
 
   // Generate a random number between number of options available for bot
   const player2 = Math.floor(Math.random() * length);
 
-  
+  // Show the player1 selected option and highlight it
+  showPlayerOption(player1, playerShowArea);
+  highlightSelectedOption(player1, player1Options);
 
+  // Show the bot selected option
+  showPlayerOption(player2, botShowArea);
+  highlightSelectedOption(player2, botOptions);
+
+  // Calculate the result
+  calulateScore(player1, player2);
 }
+
+// Generate an image element
+const generateImgElement = (index) => {
+  const { image, name } = optionsArray[index];
+  const imgElement = document.createElement("img");
+  imgElement.src = `${imageFolderPath}/${image}`;
+  imgElement.alt = name;
+  imgElement.title = name;
+  return imgElement
+};
+
+// Show selected option
+const showPlayerOption = (index, showArea) => {
+  // Append genrated image to show area
+  const imgElement = generateImgElement(index);
+  showArea.innerHTML = "";
+  showArea.append(imgElement);
+}
+
+const highlightSelectedOption = (index, options) => {
+  // Remove the class from all options
+  options.forEach((e) => {
+    e.classList.remove("active");
+  });
+
+  // Add the active class to the selected option
+  options[index].classList.add("active");
+}
+
+// Change the score
+const addScore = (player) => {
+  const { innerHTML } = player;
+  player.innerHTML = Number(innerHTML) + 1;
+};
+
+// Show the message 
+const 
